@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Navbar from "./components/shared/Navbar";
 
 export const metadata: Metadata = {
   title: "FitLog | Workout Library",
@@ -14,6 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="min-h-screen bg-[#0b0c0f]">
+        <Navbar />
         {children}
       </body>
     </html>
