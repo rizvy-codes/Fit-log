@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import bannerImage from "@/assets/images/banner.png";
 
 const Hero = () => {
   return (
@@ -32,15 +33,15 @@ const Hero = () => {
           </div>
 
           <div className="flex w-full justify-center lg:w-[45%]">
-            <Image
-              src="/images/banner.png"
-              alt="Workout exercise illustration"
-              width={420}
-              height={420}
-              priority
-              className="h-auto w-full max-w-[420px]"
-            />
-          </div>
+  <Image
+    src={bannerImage}
+    alt="Workout exercise illustration"
+    width={420}
+    height={420}
+    priority
+    className="h-auto w-full max-w-[420px]"
+  />
+</div>
 
         </div>
       </div>

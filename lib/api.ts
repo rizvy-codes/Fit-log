@@ -15,11 +15,11 @@ export const getWorkouts = async (): Promise<Workout[]> => {
 export const getWorkoutById = async (
   id: string,
 ): Promise<Workout | null> => {
-  const response = await fetch(`${API_URL}/${id}`);
+  const workouts = await getWorkouts();
 
-  if (!response.ok) {
-    return null;
-  }
+  const workout = workouts.find(
+    (item) => item.id === Number(id),
+  );
 
-  return response.json();
+  return workout ?? null;
 };
