@@ -1,25 +1,60 @@
 import { Workout } from "@/types/workout";
 
-const API_URL = "https://api.api-store.workers.dev/api/fitlog";
+const API_URL =
+  "https://api.api-store.workers.dev/api/fitlog";
 
-export const getWorkouts = async (): Promise<Workout[]> => {
-  const response = await fetch(API_URL);
+export const getWorkouts =
+  async (): Promise<Workout[]> => {
+    try {
+      const response = await fetch(API_URL);
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch workouts");
-  }
+      if (!response.ok) {
+        throw new Error(
+          "Unable to load workout data",
+        );
+      }
 
-  return response.json();
-};
+      const data = await response.json();
 
-export const getWorkoutById = async (
-  id: string,
-): Promise<Workout | null> => {
-  const workouts = await getWorkouts();
+      return data;
+    } catch (error) {
+      console.error(
+        "Workout API error:",
+        error,
+      );
 
-  const workout = workouts.find(
-    (item) => item.id === Number(id),
-  );
+      throw new Error(
+        "Workout data could not be loaded",
+      );
+    }
+  };
 
-  return workout ?? null;
-};
+export const getWorkoutById =
+  async (
+    id: string,
+  ): Promise<Workout | null> => {
+    try {
+      const response = await fetch(
+        `${API_URL}/${id}`,
+      );
+
+      if (!response.ok) {
+        return null;
+      }
+
+      const data = await response.json();
+
+      if (data?.error) {
+        return null;
+      }
+
+      return data;
+    } catch (error) {
+      console.error(
+        "Workout details API error:",
+        error,
+      );
+
+      return null;
+    }
+  };
